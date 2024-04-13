@@ -2,10 +2,7 @@
 def _subGen(t, p, n, k, array, necklaces):
         if t > n:
             if (n % p) == 0:
-                tmpArray = [0] * n
-                for i in range(n):
-                    tmpArray[i] = array[i + 1]
-                necklaces.append(tmpArray)
+                necklaces.append(array[1:].copy())
         else:
             array[t] = array[t - p]
             _subGen(t+1, p, n, k, array, necklaces)
