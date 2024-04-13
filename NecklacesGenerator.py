@@ -18,7 +18,3 @@ def generate(n, k):
     array = [0] * (n+1)
     _subGen(1, 1, n, k, array, necklaces)
     return necklaces
-
-if __name__ == "__main__":
-    x=GenerateNecklaces(12,2)
-    print(len(x))
