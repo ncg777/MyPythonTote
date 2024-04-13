@@ -1,4 +1,5 @@
 
+# based on a program found at https://www.socs.uoguelph.ca/~sawada/programs.html
 def _subGen(t, p, n, k, array, necklaces):
         if t > n:
             if (n % p) == 0:
