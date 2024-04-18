@@ -6,7 +6,7 @@ class MixedRadixGenerator:
     You could also see it as a cartesian product.
     https://en.wikipedia.org/wiki/Cartesian_product
     
-    This Python code was translated within 3 chat interactions from a Java enumeration by meta.ai
+    This Python code was translated by meta.ai within 3 chat interactions from a Java enumeration
     """
     def __init__(self, base):
         self.base = base
