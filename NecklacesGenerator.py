@@ -1,4 +1,3 @@
-# based on a program found at https://www.socs.uoguelph.ca/~sawada/programs.html
 def _subGen(t, p, n, k, array, necklaces):
         if t > n:
             if (n % p) == 0:
@@ -11,6 +10,11 @@ def _subGen(t, p, n, k, array, necklaces):
                 _subGen(t+1, t, n, k, array, necklaces)
 
 def generate(n, k):
+    """
+    Generates all necklaces of n beads with k colors into a single list.
+    
+    Based on a algorithm/program found at https://www.socs.uoguelph.ca/~sawada/programs.html
+    """
     necklaces = []
     array = [0] * (n+1)
     _subGen(1, 1, n, k, array, necklaces)
