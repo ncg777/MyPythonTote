@@ -11,6 +11,8 @@ def _subGen(t, p, n, k, array, necklaces):
 
 def generate(n, k):
     """
+    Technically not a Python generator class.
+    
     Generates all necklaces of n beads with k colors into a single list.
     
     Based on a algorithm/program found at https://www.socs.uoguelph.ca/~sawada/programs.html
