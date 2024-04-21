@@ -101,5 +101,39 @@ class BitSet_test(unittest.TestCase):
         bs = BitSet()
         self.assertTrue(bs.isEmpty())
 
+    def test_BitSet_get_set(self):
+        bs = BitSet(128)
+
+        # Test setting and getting individual bits
+        for i in range(128):
+            bs.set(i)
+            self.assertTrue(bs.get(i))
+            bs.clear(i)
+            self.assertFalse(bs.get(i))
+
+        # Test setting and getting multiple bits at once
+        bs.set(0)
+        bs.set(64)
+        self.assertTrue(bs.get(0))
+        self.assertTrue(bs.get(64))
+
+        # Test clearing multiple bits at once
+        bs.clear(0)
+        bs.clear(64)
+        self.assertFalse(bs.get(0))
+        self.assertFalse(bs.get(64))
+
+        # Test setting and getting bits out of range
+        with self.assertRaises(IndexError):
+            bs.set(128)
+        with self.assertRaises(IndexError):
+            bs.get(128)
+
+        # Test setting and getting bits with invalid indices
+        with self.assertRaises(TypeError):
+            bs.set('a')
+        with self.assertRaises(TypeError):
+            bs.get('a')
+
 if __name__ == '__main__':
     unittest.main()
