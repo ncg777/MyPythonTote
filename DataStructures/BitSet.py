@@ -2,7 +2,6 @@ class BitSet:
     """
     A bit set implementation.
     """
-
     def __init__(self, n=64):
         """
         Initializes a bit set with the given number of bits.
@@ -143,12 +142,3 @@ class BitSet:
         Returns true if the bit set has no bits set to true.
         """
         return all(bit == 0 for bit in self.bits)
-
-    def hashCode(self):
-        """
-        Returns the hash code value for the bit set.
-        """
-        result = 1234
-        for bit in self.bits:
-            result = (result * 31) ^ bit
-        return result

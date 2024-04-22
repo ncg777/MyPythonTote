@@ -1,8 +1,7 @@
 import unittest
-from src.DataStructures.BitSet import BitSet
+from DataStructures.BitSet import BitSet
 
 class BitSet_test(unittest.TestCase):
-
     def test_BitSet_init(self):
         bs = BitSet()
         self.assertEqual(bs.size(), 64)

@@ -1,5 +1,5 @@
 import unittest
-from src.DataStructures.Matrix import Matrix
+from DataStructures.Matrix import Matrix
 
 class TestMatrix(unittest.TestCase):
 
