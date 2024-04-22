@@ -30,7 +30,7 @@ class TestMatrix(unittest.TestCase):
 
     def test_init_with_array(self):
         arr = [[1, 2], [3, 4]]
-        m = Matrix.fromarr(arr)
+        m = Matrix.fromArray(arr)
         self.assertEqual(m.m, 2)
         self.assertEqual(m.n, 2)
         self.assertEqual(m.get(0, 0), 1)
@@ -40,7 +40,7 @@ class TestMatrix(unittest.TestCase):
 
     def test_copy(self):
         arr = [[1, 2], [3, 4]]
-        m1 = Matrix.fromarr(arr)
+        m1 = Matrix.fromArray(arr)
         m2 = Matrix(2, 2)
         m2.copy(m1)
         self.assertEqual(m2.get(0, 0), 1)
@@ -62,7 +62,7 @@ class TestMatrix(unittest.TestCase):
 
     def test_clear(self):
         arr = [[1, 2], [3, 4]]
-        m = Matrix.fromarr(arr)
+        m = Matrix.fromArray(arr)
         m.clear()
         self.assertEqual(m.get(0, 0), None)
         self.assertEqual(m.get(0, 1), None)
@@ -71,21 +71,21 @@ class TestMatrix(unittest.TestCase):
 
     def test_append_row(self):
         arr = [[1, 2], [3, 4]]
-        m = Matrix.fromarr(arr)
+        m = Matrix.fromArray(arr)
         m.append_row([5, 6])
         self.assertEqual(m.get(2, 0), 5)
         self.assertEqual(m.get(2, 1), 6)
 
     def test_append_column(self):
         arr = [[1, 2], [3, 4]]
-        m = Matrix.fromarr(arr)
+        m = Matrix.fromArray(arr)
         m.append_column([5, 6])
         self.assertEqual(m.get(0, 2), 5)
         self.assertEqual(m.get(1, 2), 6)
 
     def test_move_row(self):
         arr = [[1, 2], [3, 4]]
-        m = Matrix.fromarr(arr)
+        m = Matrix.fromArray(arr)
         m.move_row(0, 1)
         self.assertEqual(m.get(0, 0), 3)
         self.assertEqual(m.get(0, 1), 4)
@@ -94,7 +94,7 @@ class TestMatrix(unittest.TestCase):
 
     def test_move_column(self):
         arr = [[1, 2], [3, 4]]
-        m = Matrix.fromarr(arr)
+        m = Matrix.fromArray(arr)
         m.move_column(0, 1)
         self.assertEqual(m.get(0, 0), 2)
         self.assertEqual(m.get(0, 1), 1)
@@ -103,8 +103,8 @@ class TestMatrix(unittest.TestCase):
 
     def test_set_block(self):
         arr = [[1, 2], [3, 4]]
-        m = Matrix.fromarr(arr)
-        m.set_block(Matrix.fromarr([[5, 6], [7, 8]]), 0, 0)
+        m = Matrix.fromArray(arr)
+        m.set_block(Matrix.fromArray([[5, 6], [7, 8]]), 0, 0)
         self.assertEqual(m.get(0, 0), 5)
         self.assertEqual(m.get(0, 1), 6)
 

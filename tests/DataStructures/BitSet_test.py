@@ -4,7 +4,7 @@ from DataStructures.BitSet import BitSet
 class BitSet_test(unittest.TestCase):
     def test_BitSet_init(self):
         bs = BitSet()
-        self.assertEqual(bs.size(), 64)
+        self.assertEqual(bs.size, 64)
 
     def test_BitSet_set(self):
         bs = BitSet()
@@ -133,6 +133,13 @@ class BitSet_test(unittest.TestCase):
             bs.set('a')
         with self.assertRaises(TypeError):
             bs.get('a')
-
+    def test_toString(self):
+        bitSet = BitSet(8)
+        bitSet.set(0)
+        bitSet.set(2)
+        bitSet.set(4)
+        bitSet.set(6)
+        self.assertEqual(bitSet.toString(), "10101010")
+        
 if __name__ == '__main__':
     unittest.main()

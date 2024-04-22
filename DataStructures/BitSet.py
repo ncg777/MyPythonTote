@@ -1,3 +1,5 @@
+import sys
+
 class BitSet:
     """
     A bit set implementation.
@@ -6,60 +8,59 @@ class BitSet:
         """
         Initializes a bit set with the given number of bits.
         """
-        self.bits = [0] * ((n + 63) // 64)
+        self.size = n
+        self.bits = [0] * ((n + self._word_size() - 1) // self._word_size())
 
-    def size(self):
+    def _word_size(self):
         """
-        Returns the number of bits in the bit set.
+        Returns the number of bits in a word.
         """
-        return len(self.bits) * 64
-
-    def length(self):
-        """
-        Returns the number of bits in the bit set.
-        """
-        return self.size()
+        return sys.maxsize.bit_length()
 
     def get(self, bitIndex):
         """
         Returns the value of the bit at the specified index.
         """
-        return (self.bits[bitIndex // 64] & (1 << (bitIndex % 64))) != 0
+        if bitIndex >= self.size:
+            raise IndexError("Index out of bounds")
+        return (self.bits[bitIndex // self._word_size()] & (1 << (bitIndex % self._word_size()))) != 0
 
     def set(self, bitIndex, value=1):
         """
         Sets the bit at the specified index to the specified value.
         """
-        self.bits[bitIndex // 64] |= 1 << (bitIndex % 64)
+        if bitIndex >= self.size:
+            raise IndexError("Index out of bounds")
+        self.bits[bitIndex // self._word_size()] |= 1 << (bitIndex % self._word_size())
 
     def clear(self, bitIndex):
         """
         Sets the bit at the specified index to false.
         """
-        self.bits[bitIndex // 64] &= ~(1 << (bitIndex % 64))
+        self.bits[bitIndex // self._word_size()] &= ~(1 << (bitIndex % self._word_size()))
 
     def flip(self, bitIndex):
         """
         Toggles the bit at the specified index.
         """
-        if bitIndex // 64 < len(self.bits):
-            self.bits[bitIndex // 64] ^= 1 << (bitIndex % 64)
+        if bitIndex // self._word_size() < len(self.bits):
+            self.bits[bitIndex // self._word_size()] ^= 1 << (bitIndex % self._word_size())
 
     def nextSetBit(self, fromIndex):
         """
         Returns the index of the first bit that is set to true that occurs on or after the specified starting index.
         """
-        for i in range(fromIndex // 64, len(self.bits)):
+        for i in range(fromIndex // self._word_size(), len(self.bits)):
             if self.bits[i] != 0:
-                return i * 64 + self.bits[i].bit_length() - 1
+                return i * self._word_size() + self.bits[i].bit_length() - 1
         return -1
 
     def nextClearBit(self, bitIndex):
-        while bitIndex < self.size():
+        while bitIndex < self.size:
             if not self.get(bitIndex):
                 return bitIndex
             bitIndex += 1
-        return self.size()
+        return self.size
 
     def previousSetBit(self, bitIndex):
         while bitIndex >= 0:
@@ -80,8 +81,7 @@ class BitSet:
         """
         Returns a string representation of the bit set.
         """
-        return "{" + ", ".join(str(i) for i in range(self.size()) if self.get(i)) + "}"
-    
+        return "".join("1" if self.get(i) else "0" for i in range(self.size))
 
     def cardinality(self):
         """
@@ -119,7 +119,7 @@ class BitSet:
         """
         Returns a clone of the bit set.
         """
-        return BitSet(len(self.bits) * 64).fromArray(self.bits)
+        return BitSet(self.size).fromArray(self.bits)
 
     def fromArray(self, bits):
         """
@@ -127,7 +127,7 @@ class BitSet:
         """
         self.bits = bits
         return self
-    
+
     def intersects(self, bitSet):
         """
         Returns true if the specified bit set has any bits set to true that are also set to true in this bit set.
