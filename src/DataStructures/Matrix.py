@@ -171,7 +171,7 @@ class Matrix:
         m = Matrix(self.n, self.m)
         for i in range(self.m):
             for j in range(self.n):
-                m.set(j,i,self.get(i,j))
+                m.set(j, i, self.get(i, j))
         return m
 
     def contains(self, el):
