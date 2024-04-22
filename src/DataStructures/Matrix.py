@@ -168,11 +168,11 @@ class Matrix:
         return [self.get(i, j) for j in range(self.n)]
 
     def get_transpose(self):
-        o = Matrix(self.n, self.m)
-        for i in self.mat.keys():
-            for j in self.mat[i].keys():
-                o.set(j, i, self.mat[i][j])
-        return o
+        m = Matrix(self.n, self.m)
+        for i in range(self.m):
+            for j in range(self.n):
+                m.set(j,i,self.get(i,j))
+        return m
 
     def contains(self, el):
         for i in self.mat.keys():
@@ -185,6 +185,7 @@ class Matrix:
 
     def swap_rows(self, a, b):
         self.data[a], self.data[b] = self.data[b], self.data[a]
+
     def compare_rows(self, a, b):
         return self._compare_rows(self.data[a],self.data[b])
     

@@ -138,3 +138,18 @@ class TestMatrix(unittest.TestCase):
         matrix.data = [[3, 2, 1]]
         matrix.sort_rows()
         self.assertEqual(matrix.data, [[3, 2, 1]])
+
+    def test_get_transpose(self):
+        # Create a 2x3 matrix
+        matrix = Matrix(2, 3)
+        matrix.data = [[1, 2, 3], [4, 5, 6]]
+
+        # Get the transpose of the matrix
+        transposed_matrix = matrix.get_transpose()
+
+        # Check that the transposed matrix has the correct dimensions
+        self.assertEqual(transposed_matrix.m, 3)
+        self.assertEqual(transposed_matrix.n, 2)
+
+        # Check that the transposed matrix has the correct elements
+        self.assertEqual(transposed_matrix.data, [[1, 4], [2, 5], [3, 6]])
