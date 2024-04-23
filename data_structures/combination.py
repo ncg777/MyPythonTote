@@ -57,13 +57,13 @@ class Combination(data_structures.bitset.BitSet):
         return Combination.from_bitset(super().rotate(t))
     
     def union(self, other):
-        return Combination.from_bitset(self.union(other))
+        return Combination.from_bitset(super().union(other))
 
     def intersection(self, other):
-        return Combination.from_bitset(self.intersection(other))
+        return Combination.from_bitset(super().intersection(other))
 
     def minus(self, other):
-        return Combination.from_bitset(self.minus(other))
+        return Combination.from_bitset(super().minus(other))
         
     def __hash__(self):
         return hash(tuple(self.bits))
