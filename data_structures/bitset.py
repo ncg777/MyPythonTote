@@ -60,25 +60,25 @@ class BitSet:
         Returns the index of the first bit that is set to true that occurs on or after the specified starting index.
         """
         for i in range(fromIndex, self.n):
-            if self[i] != 0:
+            if self[i] == 1:
                 return i
         return -1
 
     def next_clear_bit(self, fromIndex):
         for i in range(fromIndex, self.n):
-            if self[i] != 1:
+            if self[i] == 0:
                 return i
         return -1
 
     def previous_set_bit(self, fromIndex):
         for i in range(fromIndex, -1, -1):
-            if self[i] != 0:
+            if self[i]==1:
                 return i
         return -1
 
     def previous_clear_bit(self, fromIndex):
         for i in range(fromIndex, -1, -1):
-            if self[i] != 1:
+            if self[i] == 0:
                 return i
         return -1
     
