@@ -3,7 +3,7 @@ class Matrix:
     Pointless and futile exercise of a Python class.
     """
     @classmethod
-    def fromArray(self, arr):
+    def from_array(self, arr):
         m = len(arr)
         n = len(arr[0])
         mat = Matrix(m,n)

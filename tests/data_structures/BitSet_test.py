@@ -24,25 +24,25 @@ class BitSet_test(unittest.TestCase):
         bs.flip(10)
         self.assertFalse(bs.get(10))
 
-    def test_BitSet_nextSetBit(self):
+    def test_BitSet_next_set_bit(self):
         bs = BitSet()
         bs.set(10)
-        self.assertEqual(bs.nextSetBit(5), 10)
+        self.assertEqual(bs.next_set_bit(5), 10)
 
-    def test_BitSet_nextClearBit(self):
+    def test_BitSet_next_clear_bit(self):
         bs = BitSet()
         bs.set(10)
-        self.assertEqual(bs.nextClearBit(5), 5)
+        self.assertEqual(bs.next_clear_bit(5), 5)
 
-    def test_BitSet_previousSetBit(self):
+    def test_BitSet_previous_set_bit(self):
         bs = BitSet()
         bs.set(10)
-        self.assertEqual(bs.previousSetBit(15), 10)
+        self.assertEqual(bs.previous_set_bit(15), 10)
 
-    def test_BitSet_previousClearBit(self):
+    def test_BitSet_previous_clear_bit(self):
         bs = BitSet()
         bs.set(10)
-        self.assertEqual(bs.previousClearBit(15), 14)
+        self.assertEqual(bs.previous_clear_bit(15), 14)
 
     def test_BitSet_cardinality(self):
         bs = BitSet()
@@ -83,10 +83,10 @@ class BitSet_test(unittest.TestCase):
         bs2.set(10)
         self.assertTrue(bs1.equals(bs2))
 
-    def test_BitSet_clone(self):
+    def test_BitSet_copy(self):
         bs1 = BitSet()
         bs1.set(10)
-        bs2 = bs1.clone()
+        bs2 = bs1.copy()
         self.assertTrue(bs2.get(10))
 
     def test_BitSet_intersects(self):
@@ -96,9 +96,9 @@ class BitSet_test(unittest.TestCase):
         bs2.set(10)
         self.assertTrue(bs1.intersects(bs2))
 
-    def test_BitSet_isEmpty(self):
+    def test_BitSet_is_empty(self):
         bs = BitSet()
-        self.assertTrue(bs.isEmpty())
+        self.assertTrue(bs.is_empty())
 
     def test_BitSet_get_set(self):
         bs = BitSet(128)
@@ -134,13 +134,13 @@ class BitSet_test(unittest.TestCase):
         with self.assertRaises(TypeError):
             bs.get('a')
 
-    def test_toString(self):
+    def test_to_string(self):
         bitSet = BitSet(8)
         bitSet.set(0)
         bitSet.set(2)
         bitSet.set(4)
         bitSet.set(6)
-        self.assertEqual(bitSet.toString(), "01010101")
+        self.assertEqual(bitSet.to_string(), "01010101")
 
     def test_from_bitstring(self):
         bs = BitSet.from_bitstring("01010101")
@@ -156,7 +156,7 @@ class BitSet_test(unittest.TestCase):
 
     def test_from_array(self):
         bs = BitSet.from_array([0,1,0,1,1]);
-        self.assertEqual(bs.toString(),"11010")
+        self.assertEqual(bs.to_string(),"11010")
 
     def test_lt(self):
         bs1 = BitSet(5)

@@ -15,7 +15,7 @@ class Combination(data_structures.bitset.BitSet):
                 return self.get(i) - other.get(i)
         return 0
     
-    def symmetricDifference(self, other):
+    def symmetric_difference(self, other):
         if not isinstance(other, Combination):
             raise ValueError("Can only perform symmetric difference with another Combination")
         if self.n != other.n:
@@ -36,7 +36,7 @@ class Combination(data_structures.bitset.BitSet):
             if self.get(i) == value:
                 yield i
 
-    def toBinaryString(self):
+    def to_bitstring(self):
         return self.toString()
 
     def __str__(self):

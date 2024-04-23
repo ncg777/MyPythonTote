@@ -55,7 +55,7 @@ class BitSet:
         if bitIndex // self._word_size() < len(self.bits):
             self.bits[bitIndex // self._word_size()] ^= 1 << (bitIndex % self._word_size())
 
-    def nextSetBit(self, fromIndex):
+    def next_set_bit(self, fromIndex):
         """
         Returns the index of the first bit that is set to true that occurs on or after the specified starting index.
         """
@@ -64,21 +64,21 @@ class BitSet:
                 return i * self._word_size() + self.bits[i].bit_length() - 1
         return -1
 
-    def nextClearBit(self, bitIndex):
+    def next_clear_bit(self, bitIndex):
         while bitIndex < self.n:
             if not self.get(bitIndex):
                 return bitIndex
             bitIndex += 1
         return self.n
 
-    def previousSetBit(self, bitIndex):
+    def previous_set_bit(self, bitIndex):
         while bitIndex >= 0:
             if self.get(bitIndex):
                 return bitIndex
             bitIndex -= 1
         return -1
 
-    def previousClearBit(self, bitIndex):
+    def previous_clear_bit(self, bitIndex):
         bitIndex -= 1
         while bitIndex >= 0:
             if not self.get(bitIndex):
@@ -86,7 +86,7 @@ class BitSet:
             bitIndex -= 1
         return -1
 
-    def toString(self):
+    def to_string(self):
         """
         Returns a string representation of the bit set.
         """
@@ -124,7 +124,7 @@ class BitSet:
             return self.bits == obj.bits
         return False
 
-    def clone(self):
+    def copy(self):
         """
         Returns a clone of the bit set.
         """
@@ -158,7 +158,7 @@ class BitSet:
                 return True
         return False
 
-    def isEmpty(self):
+    def is_empty(self):
         """
         Returns true if the bit set has no bits set to true.
         """

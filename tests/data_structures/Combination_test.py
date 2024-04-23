@@ -14,7 +14,7 @@ class TestCombination(unittest.TestCase):
         c2 = Combination(5)
         c2.set(0, True)
         c2.set(2, True)
-        self.assertEqual(c1.symmetricDifference(c2).asBinarySequence(), [0, 1, 1, 0, 0])
+        self.assertEqual(c1.symmetric_difference(c2).asBinarySequence(), [0, 1, 1, 0, 0])
 
     def test_eq(self):
         c1 = Combination(5)
@@ -39,7 +39,7 @@ class TestCombination(unittest.TestCase):
         c = Combination(5)
         c.set(0, True)
         c.set(1, True)
-        self.assertEqual(c.toBinaryString(), '11000')
+        self.assertEqual(c.to_bitstring(), '11000')
 
     def test_str(self):
         c = Combination(5)
