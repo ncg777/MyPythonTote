@@ -109,7 +109,7 @@ class BitSet:
         """
         self.bits = [self.bits[i] ^ bitSet.bits[i] for i in range(len(self.bits))]
 
-    def equals(self, obj):
+    def __eq__(self, obj):
         """
         Returns true if the specified object is equal to this bit set.
         """
@@ -179,9 +179,14 @@ class BitSet:
         """
         if not isinstance(other, BitSet):
             raise ValueError("Can only compare with another BitSet")
-        if self.n != other.n:
-            raise ValueError("BitSets must be of the same size")
-        for i in range(self.n):
-            if self.get(i) != other.get(i):
-                return -1 if self.get(i) < other.get(i) else 1
-        return 0
+        min_n = min(self.n, other.n)
+        for i in range(min_n):
+            if(self[i] < other[i]):
+                return -1
+            if(self[i] > other[i]):
+                return 1
+        if(self.n == other.n):
+            return 0
+        if(self.n > other.n):
+            return 1
+        return -1
