@@ -238,5 +238,6 @@ class BitSet_test(unittest.TestCase):
         c.set(0, True)
         c.set(1, True)
         self.assertEqual(c.to_binary_array(), [1, 1, 0, 0, 0])
+        
 if __name__ == '__main__':
     unittest.main()
