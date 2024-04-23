@@ -169,14 +169,7 @@ class BitSet:
         return all(bit == 0 for bit in self.bits)
     
     def __lt__(self, other):
-        if not isinstance(other, BitSet):
-            raise ValueError("Can only compare with another BitSet")
-        if self.n != other.n:
-            raise ValueError("BitSets must be of the same size")
-        for i in range(self.n):
-            if self.get(i) != other.get(i):
-                return self.get(i) < other.get(i)
-        return False
+        return self.compare(other) == -1
     
     def compare(self, other):
         """
@@ -190,5 +183,5 @@ class BitSet:
             raise ValueError("BitSets must be of the same size")
         for i in range(self.n):
             if self.get(i) != other.get(i):
-                return 1 if self.get(i) < other.get(i) else -1
+                return -1 if self.get(i) < other.get(i) else 1
         return 0
