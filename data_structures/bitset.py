@@ -72,7 +72,7 @@ class BitSet:
 
     def previous_set_bit(self, fromIndex):
         for i in range(fromIndex, -1, -1):
-            if self[i]==1:
+            if self[i] == 1:
                 return i
         return -1
 
