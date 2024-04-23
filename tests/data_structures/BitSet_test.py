@@ -1,5 +1,5 @@
 import unittest
-from DataStructures.BitSet import BitSet
+from data_structures.bitset import BitSet
 
 class BitSet_test(unittest.TestCase):
     def test_BitSet_init(self):

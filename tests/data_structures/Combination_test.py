@@ -1,99 +1,99 @@
 import unittest
-import DataStructures.Combination
+from data_structures.combination import Combination
 
 class TestCombination(unittest.TestCase):
 
     def test_init(self):
-        c = DataStructures.Combination.Combination(5)
+        c = Combination(5)
         self.assertEqual(c.n, 5)
 
     def test_symmetricDifference(self):
-        c1 = DataStructures.Combination.Combination(5)
+        c1 = Combination(5)
         c1.set(0, True)
         c1.set(1, True)
-        c2 = DataStructures.Combination.Combination(5)
+        c2 = Combination(5)
         c2.set(0, True)
         c2.set(2, True)
         self.assertEqual(c1.symmetricDifference(c2).asBinarySequence(), [0, 1, 1, 0, 0])
 
     def test_eq(self):
-        c1 = DataStructures.Combination.Combination(5)
+        c1 = Combination(5)
         c1.set(0, True)
         c1.set(1, True)
         print(c1.asBinarySequence)
-        c2 = DataStructures.Combination.Combination(5)
+        c2 = Combination(5)
         c2.set(0, True)
         c2.set(1, True)
         self.assertEqual(c1, c2)
 
     def test_hash(self):
-        c1 = DataStructures.Combination.Combination(5)
+        c1 = Combination(5)
         c1.set(0, True)
         c1.set(1, True)
-        c2 = DataStructures.Combination.Combination(5)
+        c2 = Combination(5)
         c2.set(0, True)
         c2.set(1, True)
         self.assertEqual(hash(c1), hash(c2))
 
     def test_toBinaryString(self):
-        c = DataStructures.Combination.Combination(5)
+        c = Combination(5)
         c.set(0, True)
         c.set(1, True)
         self.assertEqual(c.toBinaryString(), '11000')
 
     def test_str(self):
-        c = DataStructures.Combination.Combination(5)
+        c = Combination(5)
         c.set(0, True)
         c.set(1, True)
         self.assertEqual(str(c), '{0, 1}')
 
     def test_asSequence(self):
-        c = DataStructures.Combination.Combination(5)
+        c = Combination(5)
         c.set(0, True)
         c.set(1, True)
         self.assertEqual(c.asSequence(), [0, 1])
 
     def test_asBinarySequence(self):
-        c = DataStructures.Combination.Combination(5)
+        c = Combination(5)
         c.set(0, True)
         c.set(1, True)
         self.assertEqual(c.asBinarySequence(), [1, 1, 0, 0, 0])
 
     def test_fromBinarySequence(self):
-        c = DataStructures.Combination.Combination.fromBinarySequence([1, 1, 0, 0, 0])
+        c = Combination.fromBinarySequence([1, 1, 0, 0, 0])
         self.assertEqual(c.asBinarySequence(), [1, 1, 0, 0, 0])
 
     def test_rotate(self):
-        c = DataStructures.Combination.Combination(5)
+        c = Combination(5)
         c.set(0, True)
         c.set(1, True)
         rotated = c.rotate(1)
         self.assertEqual(rotated.asBinarySequence(), [0, 1, 1, 0, 0])
 
     def test_intersection(self):
-        c1 = DataStructures.Combination.Combination(5)
+        c1 = Combination(5)
         c1.set(0, True)
         c1.set(1, True)
-        c2 = DataStructures.Combination.Combination(5)
+        c2 = Combination(5)
         c2.set(0, True)
         c2.set(2, True)
         self.assertEqual(c1.intersection(c2).asBinarySequence(), [1, 0, 0, 0, 0])
 
     def test_minus(self):
-        c1 = DataStructures.Combination.Combination(5)
+        c1 = Combination(5)
         c1.set(0, True)
         c1.set(1, True)
-        c2 = DataStructures.Combination.Combination(5)
+        c2 = Combination(5)
         c2.set(0, True)
         c2.set(2, True)
         self.assertEqual(c1.minus(c2).asBinarySequence(), [0, 1, 0, 0, 0])
 
     def test_union(self):
-        c1 = DataStructures.Combination.Combination(5)
+        c1 = Combination(5)
         c1.set(0, True)
         c1.set(2, True)
 
-        c2 = DataStructures.Combination.Combination(5)
+        c2 = Combination(5)
         c2.set(1, True)
         c2.set(2, True)
         c2.set(3, True)

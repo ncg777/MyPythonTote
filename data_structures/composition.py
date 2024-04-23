@@ -1,6 +1,6 @@
-import DataStructures
+import data_structures
 
-class Composition(DataStructures.Combination.Combination):
+class Composition(data_structures.combination.Combination):
     def __init__(self, n):
         super().__init__(n - 1)
 
@@ -20,7 +20,7 @@ class Composition(DataStructures.Combination.Combination):
         return o
 
     def asCombination(self):
-        o = DataStructures.Combination.Combination(self.m_n + 1)
+        o = data_structures.combination.Combination(self.m_n + 1)
         o.set(0)
         for i in range(1, self.m_n + 1):
             o.set(i, self.get(i - 1))
@@ -29,8 +29,8 @@ class Composition(DataStructures.Combination.Combination):
     def degrade(self):
         c = self.cardinality()
         if c == 0:
-            return DataStructures.Composition.Composition()
-        o = DataStructures.Composition.Composition(self.getTotal() - 1)
+            return data_structures.composition.Composition()
+        o = data_structures.composition.Composition(self.getTotal() - 1)
         if c == 1:
             return o
         i = self.next_set_bit(0)

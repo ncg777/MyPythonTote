@@ -1,5 +1,5 @@
 import unittest
-from DataStructures.TreeMap import TreeMap
+from data_structures.treemap import TreeMap
 
 class TestTreeMap(unittest.TestCase):
 

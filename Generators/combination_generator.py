@@ -1,11 +1,11 @@
-import DataStructures.Combination
+import data_structures.combination
 class CombinationGenerator:
     def __init__(self, n, k):
         self.current = self.first(n, k)
 
     @staticmethod
     def first(n, k):
-        o = DataStructures.Combination.Combination(n)
+        o = data_structures.combination.Combination(n)
         for i in range(k):
             o.set(i, True)
         return o
@@ -20,7 +20,7 @@ class CombinationGenerator:
                 j = i
                 break
         if j != -1:
-            o = DataStructures.Combination.Combination(c)
+            o = data_structures.combination.Combination(c)
             o.set(j, False)
             o.set(j + 1, True)
             s = -1

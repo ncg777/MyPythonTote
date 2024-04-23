@@ -1,8 +1,7 @@
-import DataStructures
-import DataStructures.Combination
-from Generators.CombinationGenerator import CombinationGenerator
+import data_structures
+from generators.combination_generator import CombinationGenerator
 
-class Combination(DataStructures.BitSet.BitSet):
+class Combination(data_structures.bitset.BitSet):
     def __init__(self, n):
         super().__init__(n)
 
@@ -54,7 +53,7 @@ class Combination(DataStructures.BitSet.BitSet):
 
     @staticmethod
     def fromBinarySequence(s):
-        c = DataStructures.Combination.Combination(len(s))
+        c = data_structures.combination.Combination(len(s))
         for i, v in enumerate(s):
             if v:
                 c.set(i)
@@ -66,7 +65,7 @@ class Combination(DataStructures.BitSet.BitSet):
             k += self.n
         while k >= self.n:
             k -= self.n
-        x = DataStructures.BitSet.BitSet(self.n)
+        x = data_structures.bitset.BitSet(self.n)
         for i in range(self.n):
             x[i] = self[(i - k + self.n) % self.n]
         o = Combination(self.n)
@@ -89,6 +88,7 @@ class Combination(DataStructures.BitSet.BitSet):
         result = Combination(self.n)
         for i in range(self.n):
             result.set(i, self.get(i) and not other.get(i))
-        return result    
+        return result
+        
     def __hash__(self):
         return hash(tuple(self.bits))

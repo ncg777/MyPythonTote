@@ -1,5 +1,5 @@
 import unittest
-from Generators.MixedRadixGenerator import MixedRadixGenerator
+from generators.mixed_radix_generator import MixedRadixGenerator
 
 class TestMixedRadixGenerator(unittest.TestCase):
 

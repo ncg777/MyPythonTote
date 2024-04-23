@@ -1,5 +1,5 @@
 import unittest
-from DataStructures.TreeSet import TreeSet
+from data_structures.treeset import TreeSet
 
 class TreeSet_test(unittest.TestCase):
 
