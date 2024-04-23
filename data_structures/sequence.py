@@ -1,6 +1,6 @@
 from typing import Dict, List, Tuple, Callable
 from collections import deque
-import collection_utils
+import data_structures.collection_utils as collection_utils
 import data_structures
 import data_structures.treemap
 import data_structures.treeset
