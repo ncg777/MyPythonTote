@@ -174,12 +174,6 @@ class Matrix:
                 m.set(j, i, self.get(i, j))
         return m
 
-    def contains(self, el):
-        for i in self.mat.keys():
-            if el in self.mat[i].values():
-                return True
-        return False
-
     def distinct_rows_sorted(self):
         return sorted(list(set(tuple(row) for row in self.data)))
 
