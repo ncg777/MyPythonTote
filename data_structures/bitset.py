@@ -59,31 +59,27 @@ class BitSet:
         """
         Returns the index of the first bit that is set to true that occurs on or after the specified starting index.
         """
-        for i in range(fromIndex // self._word_size(), len(self.bits)):
-            if self.bits[i] != 0:
-                return i * self._word_size() + self.bits[i].bit_length() - 1
+        for i in range(fromIndex, self.n):
+            if self[i] != 0:
+                return i
         return -1
 
-    def next_clear_bit(self, bitIndex):
-        while bitIndex < self.n:
-            if not self.get(bitIndex):
-                return bitIndex
-            bitIndex += 1
-        return self.n
-
-    def previous_set_bit(self, bitIndex):
-        while bitIndex >= 0:
-            if self.get(bitIndex):
-                return bitIndex
-            bitIndex -= 1
+    def next_clear_bit(self, fromIndex):
+        for i in range(fromIndex, self.n):
+            if self[i] != 1:
+                return i
         return -1
 
-    def previous_clear_bit(self, bitIndex):
-        bitIndex -= 1
-        while bitIndex >= 0:
-            if not self.get(bitIndex):
-                return bitIndex
-            bitIndex -= 1
+    def previous_set_bit(self, fromIndex):
+        for i in range(fromIndex, -1, -1):
+            if self[i] != 0:
+                return i
+        return -1
+
+    def previous_clear_bit(self, fromIndex):
+        for i in range(fromIndex, -1, -1):
+            if self[i] != 1:
+                return i
         return -1
     
     def to_bitstring(self):

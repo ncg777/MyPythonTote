@@ -1,60 +1,55 @@
 import data_structures
+import data_structures.combination
 
 class Composition(data_structures.combination.Combination):
     def __init__(self, n):
         super().__init__(n - 1)
 
-    def getTotal(self):
+    @staticmethod
+    def from_combination(c):
+        nsb = c.next_set_bit(0);
+        if nsb == -1:
+            raise ValueError("Combination has 0 cardinality")
+        t = c.rotate(-nsb);
+        o = Composition(t.n)
+        for i in range(1, t.n, 1):
+            o[i-1]=t[i]
+        return o
+
+    @staticmethod
+    def from_array(a):
+        s = sum(a)
+        c = data_structures.combination.Combination(s)
+        acc = 0;
+        for i,v in enumerate(a):
+            c.set(acc)
+            acc += v
+        return Composition.from_combination(c)
+
+    def get_total(self):
         return self.n + 1
 
-    def asList(self):
+    def to_array(self):
         o = []
-        n = 1
-        for i in range(self.m_n):
-            if self.get(i):
-                o.append(n)
-                n = 1
+        x = 1
+        for i in range(self.n):
+            if self[i]:
+                o.append(x)
+                x = 1
             else:
-                n += 1
-        o.append(n)
+                x += 1
+        o.append(x)
         return o
-
-    def asCombination(self):
-        o = data_structures.combination.Combination(self.m_n + 1)
+    
+    def __str__(self):
+        output = ', '.join(str(i) for i in self.to_array())
+        if output:
+            output = '[' + output + ']'
+        return output
+    
+    def to_combination(self):
+        o = data_structures.combination.Combination(self.n + 1)
         o.set(0)
-        for i in range(1, self.m_n + 1):
+        for i in range(1, self.n + 1):
             o.set(i, self.get(i - 1))
         return o
-
-    def degrade(self):
-        c = self.cardinality()
-        if c == 0:
-            return data_structures.composition.Composition()
-        o = data_structures.composition.Composition(self.getTotal() - 1)
-        if c == 1:
-            return o
-        i = self.next_set_bit(0)
-        for j in range(o.m_n):
-            o.set(j, self.get((j + i + 1) % o.m_n))
-        return o
-
-    def partitionByEquality(self):
-        s = self.asList()
-        groups = [0] * len(s)
-        k = 0
-        for j in range(len(s) - 1, -1, -1):
-            if s[0] == s[j]:
-                k -= 1
-            else:
-                break
-        k += len(s)
-        k %= len(s)
-        previousValue = s[k]
-        currentGroup = 0
-        for i in range(k + 1, len(s) + k):
-            v = s[i % len(s)]
-            if v != previousValue:
-                currentGroup += 1
-            groups[i % len(groups)] = currentGroup
-            previousValue = v
-        return groups

@@ -61,13 +61,13 @@ class TestCombination(unittest.TestCase):
         bs = data_structures.bitset.BitSet.from_bitstring("00011")
         c = Combination.from_bitset(bs)
         self.assertEqual(c.to_binary_array(), [1, 1, 0, 0, 0])
-        
+
     def test_rotate(self):
         c = Combination(5)
         c.set(0, True)
         c.set(1, True)
-        rotated = c.rotate(1)
-        self.assertEqual(rotated.to_binary_array(), [0, 1, 1, 0, 0])
+        rotated = c.rotate(-1)
+        self.assertEqual(rotated.to_binary_array(), [1, 0, 0, 0, 1])
 
     def test_intersection(self):
         c1 = Combination(5)
