@@ -8,8 +8,13 @@ class BitSet:
         """
         Initializes a bit set with the given number of bits.
         """
-        self.size = n
+        self.n = n
         self.bits = [0] * ((n + self._word_size() - 1) // self._word_size())
+    def __getitem__(self, index):
+        return self.get(index)
+
+    def __setitem__(self, index, value):
+        self.set(index, value)
 
     def _word_size(self):
         """
@@ -21,17 +26,20 @@ class BitSet:
         """
         Returns the value of the bit at the specified index.
         """
-        if bitIndex >= self.size:
+        if bitIndex >= self.n:
             raise IndexError("Index out of bounds")
         return (self.bits[bitIndex // self._word_size()] & (1 << (bitIndex % self._word_size()))) != 0
 
-    def set(self, bitIndex, value=1):
+    def set(self, bitIndex, value=True):
         """
         Sets the bit at the specified index to the specified value.
         """
-        if bitIndex >= self.size:
+        if bitIndex >= self.n:
             raise IndexError("Index out of bounds")
-        self.bits[bitIndex // self._word_size()] |= 1 << (bitIndex % self._word_size())
+        if value:
+            self.bits[bitIndex // self._word_size()] |= 1 << (bitIndex % self._word_size())
+        else:
+            self.bits[bitIndex // self._word_size()] &= ~(1 << (bitIndex % self._word_size()))
 
     def clear(self, bitIndex):
         """
@@ -56,11 +64,11 @@ class BitSet:
         return -1
 
     def nextClearBit(self, bitIndex):
-        while bitIndex < self.size:
+        while bitIndex < self.n:
             if not self.get(bitIndex):
                 return bitIndex
             bitIndex += 1
-        return self.size
+        return self.n
 
     def previousSetBit(self, bitIndex):
         while bitIndex >= 0:
@@ -81,7 +89,7 @@ class BitSet:
         """
         Returns a string representation of the bit set.
         """
-        return "".join("1" if self.get(i) else "0" for i in range(self.size))
+        return "".join("1" if self.get(i) else "0" for i in range(self.n))
 
     def cardinality(self):
         """
@@ -119,13 +127,16 @@ class BitSet:
         """
         Returns a clone of the bit set.
         """
-        return BitSet(self.size).fromArray(self.bits)
+        o = BitSet(self.n)
+        o.bits = self.bits.copy()
+        return o
 
     def fromArray(self, bits):
         """
         Initializes the bit set with the specified array of bits.
         """
-        self.bits = bits
+        for i,v in bits:
+            self[i] = v
         return self
 
     def intersects(self, bitSet):
@@ -142,3 +153,13 @@ class BitSet:
         Returns true if the bit set has no bits set to true.
         """
         return all(bit == 0 for bit in self.bits)
+    
+    def __lt__(self, other):
+        if not isinstance(other, BitSet):
+            raise ValueError("Can only compare with another BitSet")
+        if self.n != other.n:
+            raise ValueError("BitSets must be of the same size")
+        for i in range(self.n):
+            if self.get(i) != other.get(i):
+                return self.get(i) < other.get(i)
+        return False

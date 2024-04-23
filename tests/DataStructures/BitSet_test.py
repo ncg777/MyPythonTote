@@ -4,7 +4,7 @@ from DataStructures.BitSet import BitSet
 class BitSet_test(unittest.TestCase):
     def test_BitSet_init(self):
         bs = BitSet()
-        self.assertEqual(bs.size, 64)
+        self.assertEqual(bs.n, 64)
 
     def test_BitSet_set(self):
         bs = BitSet()
@@ -112,9 +112,9 @@ class BitSet_test(unittest.TestCase):
 
         # Test setting and getting multiple bits at once
         bs.set(0)
-        bs.set(64)
+        bs.set(5)
         self.assertTrue(bs.get(0))
-        self.assertTrue(bs.get(64))
+        self.assertTrue(bs.get(5))
 
         # Test clearing multiple bits at once
         bs.clear(0)
@@ -133,6 +133,7 @@ class BitSet_test(unittest.TestCase):
             bs.set('a')
         with self.assertRaises(TypeError):
             bs.get('a')
+
     def test_toString(self):
         bitSet = BitSet(8)
         bitSet.set(0)
@@ -140,6 +141,24 @@ class BitSet_test(unittest.TestCase):
         bitSet.set(4)
         bitSet.set(6)
         self.assertEqual(bitSet.toString(), "10101010")
-        
+
+    def test_lt(self):
+        bs1 = BitSet(5)
+        bs1.set(0, True)
+        bs1.set(2, True)
+
+        bs2 = BitSet(5)
+        bs2.set(0, True)
+        bs2.set(1, True)
+        bs2.set(2, True)
+
+        self.assertTrue(bs1 < bs2)
+
+        bs3 = BitSet(5)
+        bs3.set(0, True)
+        bs3.set(2, True)
+
+        self.assertFalse(bs1 < bs3)
+
 if __name__ == '__main__':
     unittest.main()
