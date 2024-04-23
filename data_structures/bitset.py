@@ -10,6 +10,7 @@ class BitSet:
         """
         self.n = n
         self.bits = [0] * ((n + self._word_size() - 1) // self._word_size())
+
     def __getitem__(self, index):
         return self.get(index)
 
@@ -89,7 +90,7 @@ class BitSet:
         """
         Returns a string representation of the bit set.
         """
-        return "".join("1" if self.get(i) else "0" for i in range(self.n))
+        return "".join("1" if self.get(self.n-(i+1)) else "0" for i in range(self.n))
 
     def cardinality(self):
         """
@@ -130,15 +131,24 @@ class BitSet:
         o = BitSet(self.n)
         o.bits = self.bits.copy()
         return o
-
-    def fromArray(self, bits):
+    
+    @classmethod
+    def from_array(self, bitarray):
         """
         Initializes the bit set with the specified array of bits.
         """
-        for i,v in bits:
-            self[i] = v
-        return self
-
+        bs = BitSet(len(bitarray))
+        for i in range(bs.n):
+            bs[i] = (bitarray[i] == True)
+        return bs
+    
+    @classmethod
+    def from_bitstring(self, bitstring):
+        o = BitSet(len(bitstring))
+        for i in range(o.n):
+            o.set(o.n-(i+1), bitstring[i]=="1")
+        return o
+    
     def intersects(self, bitSet):
         """
         Returns true if the specified bit set has any bits set to true that are also set to true in this bit set.

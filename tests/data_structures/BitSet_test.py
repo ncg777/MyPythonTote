@@ -140,7 +140,23 @@ class BitSet_test(unittest.TestCase):
         bitSet.set(2)
         bitSet.set(4)
         bitSet.set(6)
-        self.assertEqual(bitSet.toString(), "10101010")
+        self.assertEqual(bitSet.toString(), "01010101")
+
+    def test_from_bitstring(self):
+        bs = BitSet.from_bitstring("01010101")
+        self.assertTrue(bs[0])
+        self.assertFalse(bs[1])
+        self.assertTrue(bs[2])
+        self.assertFalse(bs[3])
+        self.assertTrue(bs[4])
+        self.assertFalse(bs[5])
+        self.assertTrue(bs[6])
+        self.assertFalse(bs[7])
+        self.assertEqual(bs.n,8)
+
+    def test_from_array(self):
+        bs = BitSet.from_array([0,1,0,1,1]);
+        self.assertEqual(bs.toString(),"11010")
 
     def test_lt(self):
         bs1 = BitSet(5)
