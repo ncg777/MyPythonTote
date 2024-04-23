@@ -30,34 +30,28 @@ class Combination(data_structures.bitset.BitSet):
 
     def __hash__(self):
         return hash((super().__hash__(), self.n))
-    
-    def iter_search(self, value):
-        for i in range(self.n):
-            if self.get(i) == value:
-                yield i
-
-    def to_bitstring(self):
-        return self.to_string()
 
     def __str__(self):
         output = ', '.join(str(i) for i in self.iter_search(1))
         if output:
             output = '{' + output + '}'
         return output
-
-    def as_array(self):
-        return [i for i in self.iter_search(1)]
-
-    def as_binary_array(self):
-        return [1 if self.get(i)==True else 0 for i in range(self.n)]
+    
+    @staticmethod
+    def from_bitset(bs):
+        c = Combination(bs.n)
+        c.bits = bs.bits
+        return c
 
     @staticmethod
-    def from_binary_array(s):
-        c = data_structures.combination.Combination(len(s))
-        for i, v in enumerate(s):
-            if v:
-                c.set(i)
-        return c
+    def from_binary_array(a):
+        b = data_structures.bitset.BitSet.from_binary_array(a)
+        return Combination.from_bitset(b)
+    
+    @staticmethod
+    def from_bitstring(bs):
+        b = data_structures.bitset.BitSet.from_bitstring(bs)        
+        return Combination.from_bitset(b);
 
     def rotate(self, t):
         k = t

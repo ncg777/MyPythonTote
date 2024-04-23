@@ -85,12 +85,12 @@ class BitSet:
                 return bitIndex
             bitIndex -= 1
         return -1
-
-    def to_string(self):
-        """
-        Returns a string representation of the bit set.
-        """
+    
+    def to_bitstring(self):
         return "".join("1" if self.get(self.n-(i+1)) else "0" for i in range(self.n))
+    
+    def __str__(self):
+        return self.to_bitstring()
 
     def cardinality(self):
         """
@@ -132,8 +132,19 @@ class BitSet:
         o.bits = self.bits.copy()
         return o
     
-    @classmethod
-    def from_array(self, bitarray):
+    def iter_search(self, value):
+        for i in range(self.n):
+            if self.get(i) == value:
+                yield i
+
+    def to_array(self):
+        return [i for i in self.iter_search(1)]
+
+    def to_binary_array(self):
+        return [1 if self.get(i)==True else 0 for i in range(self.n)]
+
+    @staticmethod
+    def from_binary_array(bitarray):
         """
         Initializes the bit set with the specified array of bits.
         """
@@ -142,8 +153,8 @@ class BitSet:
             bs[i] = (bitarray[i] == True)
         return bs
     
-    @classmethod
-    def from_bitstring(self, bitstring):
+    @staticmethod
+    def from_bitstring(bitstring):
         o = BitSet(len(bitstring))
         for i in range(o.n):
             o.set(o.n-(i+1), bitstring[i]=="1")

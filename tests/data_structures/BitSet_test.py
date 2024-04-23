@@ -140,7 +140,7 @@ class BitSet_test(unittest.TestCase):
         bitSet.set(2)
         bitSet.set(4)
         bitSet.set(6)
-        self.assertEqual(bitSet.to_string(), "01010101")
+        self.assertEqual(bitSet.__str__(), "01010101")
 
     def test_from_bitstring(self):
         bs = BitSet.from_bitstring("01010101")
@@ -155,8 +155,8 @@ class BitSet_test(unittest.TestCase):
         self.assertEqual(bs.n,8)
 
     def test_from_array(self):
-        bs = BitSet.from_array([0,1,0,1,1]);
-        self.assertEqual(bs.to_string(),"11010")
+        bs = BitSet.from_binary_array([0,1,0,1,1]);
+        self.assertEqual(bs.__str__(),"11010")
 
     def test_lt(self):
         bs1 = BitSet(5)
@@ -176,5 +176,24 @@ class BitSet_test(unittest.TestCase):
 
         self.assertFalse(bs1 < bs3)
 
+    def test_to_array(self):
+        c = BitSet(5)
+        c.set(0, True)
+        c.set(1, True)
+        self.assertEqual(c.to_array(), [0, 1])
+
+    def test_from_binary_array(self):
+        b = BitSet.from_binary_array([1, 1, 0, 0, 0])
+        self.assertEqual(b.to_binary_array(), [1, 1, 0, 0, 0])
+
+    def test_from_bitstring(self):
+        b = BitSet.from_bitstring("00011")
+        self.assertEqual(b.to_binary_array(), [1, 1, 0, 0, 0])
+
+    def test_to_binary_array(self):
+        c = BitSet(5)
+        c.set(0, True)
+        c.set(1, True)
+        self.assertEqual(c.to_binary_array(), [1, 1, 0, 0, 0])
 if __name__ == '__main__':
     unittest.main()
