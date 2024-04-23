@@ -135,6 +135,35 @@ class BitSet:
 
     def to_binary_array(self):
         return [1 if self.get(i)==True else 0 for i in range(self.n)]
+    
+    def rotate(self, t):
+        k = t
+        while k < 0:
+            k += self.n
+        while k >= self.n:
+            k -= self.n
+        x = BitSet(self.n)
+        for i in range(self.n):
+            x[i] = self[(i - k + self.n) % self.n]
+        return x
+    
+    def union(self, other):
+        result = BitSet(self.n)
+        for i in range(self.n):
+            result.set(i, self.get(i) or other.get(i))
+        return result
+
+    def intersection(self, other):
+        result = BitSet(self.n)
+        for i in range(self.n):
+            result.set(i, self.get(i) and other.get(i))
+        return result
+
+    def minus(self, other):
+        result = BitSet(self.n)
+        for i in range(self.n):
+            result.set(i, self.get(i) and not other.get(i))
+        return result
 
     @staticmethod
     def from_binary_array(bitarray):

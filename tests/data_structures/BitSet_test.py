@@ -17,6 +17,49 @@ class BitSet_test(unittest.TestCase):
         bs.clear(10)
         self.assertFalse(bs.get(10))
 
+    def test_rotate(self):
+        b = BitSet(5)
+        b.set(0, True)
+        b.set(1, True)
+        rotated = b.rotate(-1)
+        self.assertEqual(rotated.to_binary_array(), [1, 0, 0, 0, 1])
+
+    def test_intersection(self):
+        b1 = BitSet(5)
+        b1.set(0, True)
+        b1.set(1, True)
+        b2 = BitSet(5)
+        b2.set(0, True)
+        b2.set(2, True)
+        self.assertEqual(b1.intersection(b2).to_binary_array(), [1, 0, 0, 0, 0])
+
+    def test_minus(self):
+        b1 = BitSet(5)
+        b1.set(0, True)
+        b1.set(1, True)
+        b2 = BitSet(5)
+        b2.set(0, True)
+        b2.set(2, True)
+        self.assertEqual(b1.minus(b2).to_binary_array(), [0, 1, 0, 0, 0])
+
+    def test_union(self):
+        b1 = BitSet(5)
+        b1.set(0, True)
+        b1.set(2, True)
+
+        b2 = BitSet(5)
+        b2.set(1, True)
+        b2.set(2, True)
+        b2.set(3, True)
+
+        b3 = b1.union(b2)
+
+        self.assertTrue(b3.get(0))
+        self.assertTrue(b3.get(1))
+        self.assertTrue(b3.get(2))
+        self.assertTrue(b3.get(3))
+        self.assertFalse(b3.get(4))
+
     def test_BitSet_flip(self):
         bs = BitSet()
         bs.flip(10)
@@ -42,7 +85,7 @@ class BitSet_test(unittest.TestCase):
     def test_BitSet_previous_clear_bit(self):
         bs = BitSet()
         bs.set(10)
-        self.assertEqual(bs.previous_clear_bit(15), 14)
+        self.assertEqual(bs.previous_clear_bit(15), 15)
 
     def test_BitSet_cardinality(self):
         bs = BitSet()
@@ -81,7 +124,7 @@ class BitSet_test(unittest.TestCase):
         bs1.set(10)
         bs2 = BitSet()
         bs2.set(10)
-        self.assertTrue(bs1.equals(bs2))
+        self.assertTrue(bs1 == bs2)
 
     def test_BitSet_copy(self):
         bs1 = BitSet()

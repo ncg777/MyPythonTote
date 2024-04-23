@@ -54,35 +54,16 @@ class Combination(data_structures.bitset.BitSet):
         return Combination.from_bitset(b);
 
     def rotate(self, t):
-        k = t
-        while k < 0:
-            k += self.n
-        while k >= self.n:
-            k -= self.n
-        x = data_structures.bitset.BitSet(self.n)
-        for i in range(self.n):
-            x[i] = self[(i - k + self.n) % self.n]
-        o = Combination(self.n)
-        o.or_(x)
-        return o
+        return Combination.from_bitset(super().rotate(t))
     
     def union(self, other):
-        result = Combination(self.n)
-        for i in range(self.n):
-            result.set(i, self.get(i) or other.get(i))
-        return result
+        return Combination.from_bitset(self.union(other))
 
     def intersection(self, other):
-        result = Combination(self.n)
-        for i in range(self.n):
-            result.set(i, self.get(i) and other.get(i))
-        return result
+        return Combination.from_bitset(self.intersection(other))
 
     def minus(self, other):
-        result = Combination(self.n)
-        for i in range(self.n):
-            result.set(i, self.get(i) and not other.get(i))
-        return result
+        return Combination.from_bitset(self.minus(other))
         
     def __hash__(self):
         return hash(tuple(self.bits))
