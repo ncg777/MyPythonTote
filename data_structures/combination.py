@@ -37,7 +37,7 @@ class Combination(data_structures.bitset.BitSet):
                 yield i
 
     def to_bitstring(self):
-        return self.toString()
+        return self.to_string()
 
     def __str__(self):
         output = ', '.join(str(i) for i in self.iter_search(1))
@@ -45,14 +45,14 @@ class Combination(data_structures.bitset.BitSet):
             output = '{' + output + '}'
         return output
 
-    def asSequence(self):
+    def as_array(self):
         return [i for i in self.iter_search(1)]
 
-    def asBinarySequence(self):
+    def as_binary_array(self):
         return [1 if self.get(i)==True else 0 for i in range(self.n)]
 
     @staticmethod
-    def fromBinarySequence(s):
+    def from_binary_array(s):
         c = data_structures.combination.Combination(len(s))
         for i, v in enumerate(s):
             if v:
