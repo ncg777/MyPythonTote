@@ -177,3 +177,18 @@ class BitSet:
             if self.get(i) != other.get(i):
                 return self.get(i) < other.get(i)
         return False
+    
+    def compare(self, other):
+        """
+        Compares this bit set to the specified bit set.
+        Returns a negative integer if this bit set is less than the specified bit set,
+        zero if they are equal, and a positive integer if this bit set is greater than the specified bit set.
+        """
+        if not isinstance(other, BitSet):
+            raise ValueError("Can only compare with another BitSet")
+        if self.n != other.n:
+            raise ValueError("BitSets must be of the same size")
+        for i in range(self.n):
+            if self.get(i) != other.get(i):
+                return 1 if self.get(i) < other.get(i) else -1
+        return 0
