@@ -56,9 +56,6 @@ class BitSet:
             self.bits[bitIndex // self._word_size()] ^= 1 << (bitIndex % self._word_size())
 
     def next_set_bit(self, fromIndex):
-        """
-        Returns the index of the first bit that is set to true that occurs on or after the specified starting index.
-        """
         for i in range(fromIndex, self.n):
             if self[i] == 1:
                 return i
