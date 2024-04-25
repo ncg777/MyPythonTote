@@ -8,16 +8,19 @@ class BitSet:
         """
         Initializes a bit set with the given number of bits.
         """
+        if n < 1:
+            raise ValueError("Invalid BitSet size.")
         self.n = n
-        self.bits = [0] * ((n + self._word_size() - 1) // self._word_size())
+        self.bits = [0] * ((n + BitSet.word_size() - 1) // BitSet.word_size())
 
     def __getitem__(self, index):
         return self.get(index)
 
     def __setitem__(self, index, value):
         self.set(index, value)
-
-    def _word_size(self):
+    
+    @staticmethod
+    def word_size():
         """
         Returns the number of bits in a word.
         """
@@ -29,7 +32,7 @@ class BitSet:
         """
         if bitIndex >= self.n:
             raise IndexError("Index out of bounds")
-        return (self.bits[bitIndex // self._word_size()] & (1 << (bitIndex % self._word_size()))) != 0
+        return (self.bits[bitIndex // BitSet.word_size()] & (1 << (bitIndex % BitSet.word_size()))) != 0
 
     def set(self, bitIndex, value=True):
         """
@@ -38,22 +41,22 @@ class BitSet:
         if bitIndex >= self.n:
             raise IndexError("Index out of bounds")
         if value:
-            self.bits[bitIndex // self._word_size()] |= 1 << (bitIndex % self._word_size())
+            self.bits[bitIndex // BitSet.word_size()] |= 1 << (bitIndex % BitSet.word_size())
         else:
-            self.bits[bitIndex // self._word_size()] &= ~(1 << (bitIndex % self._word_size()))
+            self.bits[bitIndex // BitSet.word_size()] &= ~(1 << (bitIndex % BitSet.word_size()))
 
     def clear(self, bitIndex):
         """
         Sets the bit at the specified index to false.
         """
-        self.bits[bitIndex // self._word_size()] &= ~(1 << (bitIndex % self._word_size()))
+        self.bits[bitIndex // BitSet.word_size()] &= ~(1 << (bitIndex % BitSet.word_size()))
 
     def flip(self, bitIndex):
         """
         Toggles the bit at the specified index.
         """
-        if bitIndex // self._word_size() < len(self.bits):
-            self.bits[bitIndex // self._word_size()] ^= 1 << (bitIndex % self._word_size())
+        if bitIndex // BitSet.word_size() < len(self.bits):
+            self.bits[bitIndex // BitSet.word_size()] ^= 1 << (bitIndex % BitSet.word_size())
 
     def next_set_bit(self, fromIndex):
         for i in range(fromIndex, self.n):
@@ -197,6 +200,24 @@ class BitSet:
         """
         return all(bit == 0 for bit in self.bits)
     
+    def resize(self, newSize):
+        """
+        Resizes the bit set to the specified number of bits.
+        """
+        if newSize < 1:
+            raise ValueError("Invalid BitSet size")
+        
+        if newSize > self.n:
+            newBits = [0] * ((newSize + BitSet.word_size() - 1) // BitSet.word_size())
+            for i,v in enumerate(self.bits):
+                newBits[i]=v
+            self.n = newSize
+            self.bits = newBits
+        elif newSize < self.n:
+            self.n = newSize
+            while len(self.bits) > ((self.n + (BitSet.word_size() - 1)) // BitSet.word_size()):
+                self.bits.pop()
+
     def __lt__(self, other):
         return self.compare(other) == -1
     

@@ -238,6 +238,52 @@ class BitSet_test(unittest.TestCase):
         c.set(0, True)
         c.set(1, True)
         self.assertEqual(c.to_binary_array(), [1, 1, 0, 0, 0])
-        
-if __name__ == '__main__':
-    unittest.main()
+
+    def test_resize_larger(self):
+        bs = BitSet(100)
+        # Fill the bitset with some values
+        for i in range(bs.n): 
+            if i % 2 == 0:
+                bs.set(i, True)
+
+        # Resize to a larger size
+        bs.resize(200)
+        self.assertEqual(len(bs.bits), ((200 + BitSet.word_size() - 1) // BitSet.word_size()))
+ 
+
+    def test_resize_smaller(self): 
+        bs = BitSet(100)
+         # Fill the bitset with some values
+        for i in range(bs.n):
+            if i % 2 == 0:
+                bs.set(i, True)
+
+         # Resize to a smaller size
+        bs.resize(50)
+        self.assertEqual(len(bs.bits), ((50 + BitSet.word_size() - 1) // BitSet.word_size()))
+
+    def test_resize_same(self): 
+        bs = BitSet(100)
+         # Fill the bitset with some values
+        for i in range(bs.n):
+            if i % 2 == 0:
+                bs.set(i, True)
+
+         # Resize to the same size
+        bs.resize(100)
+        self.assertEqual(len(bs.bits), ((100 + BitSet.word_size() - 1) // BitSet.word_size()))
+
+    def test_resize_empty(self): 
+        bs = BitSet(1)
+         # Resize to a larger size
+        bs.resize(10)
+        self.assertEqual(len(bs.bits), (10 + (len(bs.bits) * BitSet.word_size() - 1)) // BitSet.word_size())
+
+         # Resize to a smaller size
+        bs.resize(5)
+        self.assertEqual(len(bs.bits), (5 + (len(bs.bits) * BitSet.word_size() - 1)) // BitSet.word_size())
+
+    def test_resize_invalid(self):
+        bs = BitSet(100)
+        with self.assertRaises(ValueError): 
+            bs.resize(-10)
