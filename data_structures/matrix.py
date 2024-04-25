@@ -1,6 +1,6 @@
 class Matrix:
     """
-    Pointless and futile exercise of a Python class.
+    This is a matrix class that only assumes comparability of its elements.
     """
     @classmethod
     def from_array(self, arr):
