@@ -7,10 +7,10 @@ class Composition(data_structures.combination.Combination):
 
     @staticmethod
     def from_combination(c):
-        nsb = c.next_set_bit(0);
+        nsb = c.next_set_bit(0)
         if nsb == -1:
             raise ValueError("Combination has 0 cardinality")
-        t = c.rotate(-nsb);
+        t = c.rotate(-nsb)
         o = Composition(t.n)
         for i in range(1, t.n, 1):
             o[i-1]=t[i]
@@ -20,7 +20,7 @@ class Composition(data_structures.combination.Combination):
     def from_array(a):
         s = sum(a)
         c = data_structures.combination.Combination(s)
-        acc = 0;
+        acc = 0
         for i,v in enumerate(a):
             c.set(acc)
             acc += v
