@@ -1,7 +1,7 @@
 import data_structures.combination
 class CombinationGenerator:
     def __init__(self, n, k):
-        self.current = self.first(n, k)
+        self.current = CombinationGenerator.first(n, k)
 
     @staticmethod
     def first(n, k):
@@ -12,7 +12,7 @@ class CombinationGenerator:
 
     @staticmethod
     def next(c):
-        n = c.getN()
+        n = c.n
         o = None
         j = -1
         for i in range(n - 1):
@@ -20,7 +20,7 @@ class CombinationGenerator:
                 j = i
                 break
         if j != -1:
-            o = data_structures.combination.Combination(c)
+            o = c.copy()
             o.set(j, False)
             o.set(j + 1, True)
             s = -1
@@ -42,6 +42,6 @@ class CombinationGenerator:
     def __next__(self):
         if self.current is None:
             raise StopIteration
-        o = self.current
-        self.current = self.next(self.current)
+        o = self.current.copy()
+        self.current = CombinationGenerator.next(self.current)
         return o

@@ -4,7 +4,10 @@ from generators.combination_generator import CombinationGenerator
 class Combination(data_structures.bitset.BitSet):
     def __init__(self, n):
         super().__init__(n)
-
+    
+    def copy(self):
+        return Combination.from_bitset(self)
+    
     def compare(self, other):
         if not isinstance(other, Combination):
             raise ValueError("Can only compare with another Combination")
@@ -40,7 +43,7 @@ class Combination(data_structures.bitset.BitSet):
     @staticmethod
     def from_bitset(bs):
         c = Combination(bs.n)
-        c.bits = bs.bits
+        c.bits = bs.bits.copy()
         return c
 
     @staticmethod
