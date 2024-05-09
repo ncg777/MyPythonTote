@@ -25,10 +25,9 @@ class TestWordPermutationGenerator(unittest.TestCase):
         self.assertEqual(next(gen), [3, 2, 3, 2, 2, 2, 1, 1, 1, 1, 0])
 
     def test_all_elements(self):
-        rk = [1, 1]
-        gen = WordPermutationGenerator(rk)
-        self.assertEqual(next(gen), [0, 1])
-        self.assertEqual(next(gen), [1, 0])
+        rk = [2, 3, 2]
+        a = list(WordPermutationGenerator(rk))
+        self.assertEqual(len(a), 210)
 
 if __name__ == '__main__':
     unittest.main()
