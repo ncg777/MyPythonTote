@@ -2,6 +2,17 @@ from generators.combination_generator import CombinationGenerator
 from generators.mixed_radix_generator import MixedRadixGenerator
 
 class WordPermutationGenerator:
+    """
+    Generates the combinatorial objects associated with multinomial coefficients
+    in reverse lexicographic order.
+    
+    For example, to enumerate the permutations of MISSISSIPPI, 
+   
+    rk would be {1,4,4,2} because it has 1 M, 4 Is, 4 Ss, and 2 Ps.
+   
+    In the enumerated arrays, the 0s represent the M, the 1s the I,
+    the 2s the S and the 3 the Ps.
+    """
     def __init__(self, rk):
         if rk is None:
             raise RuntimeError("null array")
