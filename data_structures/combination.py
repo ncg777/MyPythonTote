@@ -1,5 +1,4 @@
-import data_structures
-from generators.combination_generator import CombinationGenerator
+import data_structures.bitset
 
 class Combination(data_structures.bitset.BitSet):
     def __init__(self, n):
