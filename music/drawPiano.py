@@ -43,7 +43,7 @@ def draw_piano(highlighted_notes, output_file):
         ctx.set_source_rgb(0, 0, 0)  # Black outline
         ctx.set_line_width(1)
         ctx.stroke()
-        ctx.fill()  # Removed setting source color here
+        ctx.fill()
 
         if key['color']== KeyColor.BLACK:
             ctx.set_source_rgb(*key['color'].value)
