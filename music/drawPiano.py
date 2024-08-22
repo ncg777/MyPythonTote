@@ -3,8 +3,8 @@ import numpy as np
 from enum import Enum
 
 class KeyColor(Enum):
-    WHITE = (1, 1, 1)  # RGB values and width
-    BLACK = (0, 0, 0)  # RGB values and width
+    WHITE = (1, 1, 1)
+    BLACK = (0, 0, 0)
 
 def draw_piano(highlighted_notes, output_file):
     white_width = 30
